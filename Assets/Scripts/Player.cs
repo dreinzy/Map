@@ -1,24 +1,27 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
-    public delegate void FuelUsed();
+    public Text fuelGauge;
 
-    public event FuelUsed OnFuelUsed;
 
-    private int fuel = 0;
+    public int fuel = 0;
+    private int lastFuel = 0;
 
-    public int Fuel { get; set; }
 
     // Use this for initialization
     void Start()
     {
-        fuel = 30;
+        lastFuel = fuel;
+        fuelGauge.text = "Fuel: " + fuel;
     }
 	
     // Update is called once per frame
     void Update()
     {
+        if (fuel != lastFuel)
+            fuelGauge.text = "Fuel: " + fuel;
     }
 }

@@ -7,7 +7,6 @@ public class Node : MonoBehaviour
 
     public event Completed OnCompleted;
 
-    private bool complete = false;
     private int tier;
 
     public bool Complete{ get; set; }
@@ -37,5 +36,6 @@ public class Node : MonoBehaviour
     {
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         player.transform.position = Vector3.MoveTowards(player.transform.position, transform.position, 1f);
+        player.GetComponent<Player>().fuel--;
     }
 }
