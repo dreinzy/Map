@@ -25,11 +25,20 @@ public class Node : MonoBehaviour
 	
     }
 
-    void OnTriggerEnter2D(Collider2D other)
+    //    void OnTriggerEnter2D(Collider2D other)
+    //    {
+    //        Debug.Log(this.name + " entered");
+    //        if (OnCompleted != null)
+    //            OnCompleted(this);
+    //    }
+
+    void OnTriggerEnter(Collider other)
     {
-        Debug.Log(this.name + " entered");
-        if (OnCompleted != null)
-            OnCompleted(this);
+        if (other.tag == "Player")
+        {
+            if (OnCompleted != null)
+                OnCompleted(this);
+        }
     }
 
     void OnMouseDown()
@@ -37,5 +46,11 @@ public class Node : MonoBehaviour
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         player.transform.position = Vector3.MoveTowards(player.transform.position, transform.position, 1f);
         player.GetComponent<Player>().fuel--;
+    }
+
+    public void NodeCompleted()
+    {
+        if (OnCompleted != null)
+            OnCompleted(this);
     }
 }

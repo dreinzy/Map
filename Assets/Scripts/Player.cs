@@ -7,7 +7,7 @@ public class Player : MonoBehaviour
     public Text fuelGauge;
 
 
-    public int fuel = 0;
+    public int fuel;
     private int lastFuel = 0;
 
 

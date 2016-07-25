@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class SpawnNodes : MonoBehaviour
+public class SpawnNodes3D : MonoBehaviour
 {
     public GameObject[] tier1;
     public GameObject[] tier2;
@@ -14,7 +14,7 @@ public class SpawnNodes : MonoBehaviour
     public GameObject endNode;
     public int per1, per2, per3, per4, per5, per6, per7, per8;
     private static readonly System.Random random = new System.Random();
-    public Sprite[] sprites;
+    public Material[] materials;
     private GameObject[] nodes;
 
     // Use this for initialization
@@ -25,7 +25,7 @@ public class SpawnNodes : MonoBehaviour
         else
             //TODO: Handle possible error (no end node set)
             Debug.Log("No end node set in SpawnNodes script");
-        
+
         nodes = GameObject.FindGameObjectsWithTag("Node");
 
         if (nodes == null)
@@ -189,11 +189,12 @@ public class SpawnNodes : MonoBehaviour
 
     private void AssignSprites()
     {
-        int l = sprites.Length;
+        int l = materials.Length;
         foreach (var node in nodes)
         {
             int s = random.Next(0, l);
-            node.GetComponent<SpriteRenderer>().sprite = sprites[s];
+            node.GetComponent<MeshRenderer>().enabled = true;
+            node.GetComponent<MeshRenderer>().material = materials[s];
             node.SetActive(false);
         }
     }
