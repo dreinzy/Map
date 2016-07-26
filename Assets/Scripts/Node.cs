@@ -5,39 +5,41 @@ public class Node : MonoBehaviour
 {
     public delegate void Completed(Node node);
 
+    public delegate void Entered(Node node);
+
     public event Completed OnCompleted;
+    public event Entered OnEntered;
 
     private int tier;
+    public bool complete = false;
 
     public bool Complete{ get; set; }
 
     public int Tier { get; set; }
 
-    // Use this for initialization
     void Start()
     {
         this.tag = "Node";
     }
-	
-    // Update is called once per frame
+
     void Update()
     {
-	
+        if (complete && OnCompleted != null)
+        {
+            OnCompleted(this);
+            complete = false;
+        }
     }
-
-    //    void OnTriggerEnter2D(Collider2D other)
-    //    {
-    //        Debug.Log(this.name + " entered");
-    //        if (OnCompleted != null)
-    //            OnCompleted(this);
-    //    }
 
     void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player")
         {
-            if (OnCompleted != null)
-                OnCompleted(this);
+            if (OnEntered != null)
+                OnEntered(this);
+            
+//            if (OnCompleted != null)
+//                OnCompleted(this);
         }
     }
 
@@ -50,6 +52,16 @@ public class Node : MonoBehaviour
 
     public void NodeCompleted()
     {
+        if (OnCompleted != null)
+            OnCompleted(this);
+    }
+
+
+    // ** Only relevant for 2D hereafter ** //
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        Debug.Log(this.name + " entered");
         if (OnCompleted != null)
             OnCompleted(this);
     }

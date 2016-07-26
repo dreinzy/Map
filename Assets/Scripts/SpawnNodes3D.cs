@@ -46,6 +46,57 @@ public class SpawnNodes3D : MonoBehaviour
         SpawnTier(node.Tier + 1);
     }
 
+    void DeSpawnTier(int tierNo)
+    {
+        switch (tierNo)
+        {            
+            case 1:
+                foreach (GameObject node in tier1)
+                {
+                    node.SetActive(false);
+                }                
+                break;
+            case 2:
+                foreach (GameObject node in tier2)
+                {
+                    node.SetActive(false);
+                }                
+                break;
+            case 3:
+                foreach (GameObject node in tier3)
+                {
+                    node.SetActive(false);
+                }                
+                break;
+            case 4:
+                foreach (GameObject node in tier4)
+                {
+                    node.SetActive(false);
+                }                
+                break;
+            case 5:
+                foreach (GameObject node in tier5)
+                {
+                    node.SetActive(false);
+                }                
+                break;
+            case 6:
+                foreach (GameObject node in tier6)
+                {
+                    node.SetActive(false);
+                }                
+                break;
+            case 7:
+                foreach (GameObject node in tier7)
+                {
+                    node.SetActive(false);
+                }                
+                break;
+            default:
+                break;
+        }
+    }
+
     void SpawnTier(int tierNo)
     {
         int r = 0;
@@ -185,6 +236,7 @@ public class SpawnNodes3D : MonoBehaviour
             default:
                 break;
         }
+        DeSpawnTier(tierNo - 1);
     }
 
     private void AssignSprites()
