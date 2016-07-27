@@ -33,14 +33,12 @@ public class SpawnNodes3D : MonoBehaviour
             Debug.Log("No nodes found in scene");
         else
         {
-            AssignSprites();
+            AssignMaterials();
             SpawnTier(0);
         }
 
         foreach (var node in nodes)
-        {
             node.GetComponent<Node>().OnCompleted += NodeCompleted;
-        }
     }
 
     void NodeCompleted(Node node)
@@ -247,7 +245,7 @@ public class SpawnNodes3D : MonoBehaviour
         }
     }
 
-    private void AssignSprites()
+    private void AssignMaterials()
     {
         int l = materials.Length;
         foreach (var node in nodes)

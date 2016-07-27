@@ -16,22 +16,14 @@ public class MenuController : MonoBehaviour
     void Awake()
     {
         if (NodeMenus != null)
-        {
             foreach (var menu in NodeMenus)
-            {
                 menu.SetActive(false);
-            }
-        }
 
         if (OptionsMenu != null)
-        {
             OptionsMenu.SetActive(false);
-        }
 
         if (NodeInfo != null)
-        {
             NodeInfo.SetActive(false);
-        }
 
         nodes = GameObject.FindGameObjectsWithTag("Node");
 
@@ -70,7 +62,7 @@ public class MenuController : MonoBehaviour
     void NodeHover(Node node)
     {
         NodeInfo.SetActive(true);
-        NodeInfo.GetComponentInChildren<Text>().text = "Distance: " + node.distance.magnitude.ToString("#.##") + "\nNode Type:";
+        NodeInfo.GetComponentInChildren<Text>().text = "Distance: " + node.distance.magnitude.ToString("#.##") + "\n" + node.type;
         RectTransform rect = NodeInfo.GetComponent<RectTransform>();
         rect.transform.position = Input.mousePosition;
     }
