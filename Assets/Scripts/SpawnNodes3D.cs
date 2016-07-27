@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class SpawnNodes3D : MonoBehaviour
 {
@@ -17,7 +18,6 @@ public class SpawnNodes3D : MonoBehaviour
     public Material[] materials;
     private GameObject[] nodes;
 
-    // Use this for initialization
     void Start()
     {
         if (endNode != null)
@@ -38,63 +38,14 @@ public class SpawnNodes3D : MonoBehaviour
         }
 
         foreach (var node in nodes)
+        {
             node.GetComponent<Node>().OnCompleted += NodeCompleted;
+        }
     }
 
     void NodeCompleted(Node node)
     {
         SpawnTier(node.Tier + 1);
-    }
-
-    void DeSpawnTier(int tierNo)
-    {
-        switch (tierNo)
-        {            
-            case 1:
-                foreach (GameObject node in tier1)
-                {
-                    node.SetActive(false);
-                }                
-                break;
-            case 2:
-                foreach (GameObject node in tier2)
-                {
-                    node.SetActive(false);
-                }                
-                break;
-            case 3:
-                foreach (GameObject node in tier3)
-                {
-                    node.SetActive(false);
-                }                
-                break;
-            case 4:
-                foreach (GameObject node in tier4)
-                {
-                    node.SetActive(false);
-                }                
-                break;
-            case 5:
-                foreach (GameObject node in tier5)
-                {
-                    node.SetActive(false);
-                }                
-                break;
-            case 6:
-                foreach (GameObject node in tier6)
-                {
-                    node.SetActive(false);
-                }                
-                break;
-            case 7:
-                foreach (GameObject node in tier7)
-                {
-                    node.SetActive(false);
-                }                
-                break;
-            default:
-                break;
-        }
     }
 
     void SpawnTier(int tierNo)
@@ -239,6 +190,63 @@ public class SpawnNodes3D : MonoBehaviour
         DeSpawnTier(tierNo - 1);
     }
 
+    void DeSpawnTier(int tierNo)
+    {
+        switch (tierNo)
+        {            
+            case 1:
+                foreach (GameObject node in tier1)
+                {
+                    node.SetActive(false);
+                }                
+                break;
+            case 2:
+                foreach (GameObject node in tier2)
+                {
+                    node.SetActive(false);
+                }                
+                break;
+            case 3:
+                foreach (GameObject node in tier3)
+                {
+                    node.SetActive(false);
+                }                
+                break;
+            case 4:
+                foreach (GameObject node in tier4)
+                {
+                    node.SetActive(false);
+                }                
+                break;
+            case 5:
+                foreach (GameObject node in tier5)
+                {
+                    node.SetActive(false);
+                }                
+                break;
+            case 6:
+                foreach (GameObject node in tier6)
+                {
+                    node.SetActive(false);
+                }                
+                break;
+            case 7:
+                foreach (GameObject node in tier7)
+                {
+                    node.SetActive(false);
+                }                
+                break;
+            case 8:
+                foreach (GameObject node in tier8)
+                {
+                    node.SetActive(false);
+                }                
+                break;
+            default:
+                break;
+        }
+    }
+
     private void AssignSprites()
     {
         int l = materials.Length;
@@ -247,6 +255,11 @@ public class SpawnNodes3D : MonoBehaviour
             int s = random.Next(0, l);
             node.GetComponent<MeshRenderer>().enabled = true;
             node.GetComponent<MeshRenderer>().material = materials[s];
+            if (s == 1)
+                node.GetComponent<Node>().type = Node.nodeType.Wreck;
+            else if (s == 2)
+                node.GetComponent<Node>().type = Node.nodeType.Bonus;
+
             node.SetActive(false);
         }
     }

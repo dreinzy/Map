@@ -1,25 +1,39 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class Node : MonoBehaviour
 {
-    public delegate void Completed(Node node);
+    public delegate void NodeEventHandler(Node node);
 
-    public delegate void Entered(Node node);
+    public event NodeEventHandler OnCompleted;
+    public event NodeEventHandler OnEntered;
+    public event NodeEventHandler OnHover;
+    public event NodeEventHandler OnHoverExit;
 
-    public event Completed OnCompleted;
-    public event Entered OnEntered;
-
-    private int tier;
+    public Vector3 distance;
     public bool complete = false;
 
-    public bool Complete{ get; set; }
+    public enum nodeType
+    {
+        Wreck,
+        Fuel,
+        Bonus}
+
+    ;
+
+    private int tier;
+    private GameObject player;
+
+    public nodeType type = nodeType.Fuel;
 
     public int Tier { get; set; }
 
     void Start()
     {
         this.tag = "Node";
+
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     void Update()
@@ -29,6 +43,7 @@ public class Node : MonoBehaviour
             OnCompleted(this);
             complete = false;
         }
+        distance = this.transform.position - player.transform.position;
     }
 
     void OnTriggerEnter(Collider other)
@@ -45,9 +60,25 @@ public class Node : MonoBehaviour
 
     void OnMouseDown()
     {
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
         player.transform.position = Vector3.MoveTowards(player.transform.position, transform.position, 1f);
+        player.GetComponent<Player>().FaceDirection(this);
         player.GetComponent<Player>().fuel--;
+    }
+
+    void OnMouseOver()
+    {
+        if (OnHover != null)
+        {
+            OnHover(this);
+        }
+    }
+
+    public void OnMouseExit()
+    {
+        if (OnHoverExit != null)
+        {
+            OnHoverExit(this);
+        }
     }
 
     public void NodeCompleted()
@@ -57,7 +88,7 @@ public class Node : MonoBehaviour
     }
 
 
-    // ** Only relevant for 2D hereafter ** //
+    // ** Only relevant for 2D ** //
 
     void OnTriggerEnter2D(Collider2D other)
     {
