@@ -36,6 +36,7 @@ public class MenuController : MonoBehaviour
             node.GetComponent<Node>().OnEntered += NodeEntered;
             node.GetComponent<Node>().OnHover += NodeHover;
             node.GetComponent<Node>().OnHoverExit += NodeExit;
+            node.GetComponent<Node>().OnCompleted += NodeCompleted;
         }        
     }
 
@@ -79,5 +80,10 @@ public class MenuController : MonoBehaviour
         {
             menu.SetActive(false);
         }
+    }
+
+    private void NodeCompleted(Node node)
+    {
+        node.gameObject.SetActive(false);
     }
 }

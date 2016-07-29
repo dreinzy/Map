@@ -8,6 +8,8 @@ public class Player : MonoBehaviour
     public Image fuelMeter;
     public AudioClip move;
     public AudioClip bonus;
+    public AudioClip wreck;
+    public AudioClip refuel;
 
     private AudioSource audio;
     public int fuel;
@@ -32,13 +34,15 @@ public class Player : MonoBehaviour
     public void FaceDirection(Node node)
     {
         //TODO: Rotate ship to look at node, this doesn't work:
-        this.transform.rotation.SetLookRotation(new Vector3(node.distance.x, 90.0f, 270.0f));
+        this.transform.LookAt(node.transform);
         audio.clip = move;
         audio.Play();
     }
 
     public void AddFuel(int fuelFound)
     {
+        audio.clip = refuel;
+        audio.Play();
         fuel += fuelFound;
         if (fuel > 30)
             fuel = 30;
@@ -47,6 +51,12 @@ public class Player : MonoBehaviour
     public void Bonus()
     {
         audio.clip = bonus;
+        audio.Play();
+    }
+
+    public void Wreck()
+    {
+        audio.clip = wreck;
         audio.Play();
     }
 }

@@ -18,7 +18,8 @@ public class Node : MonoBehaviour
     {
         Wreck,
         Fuel,
-        Bonus}
+        Bonus,
+        End}
 
     ;
 
