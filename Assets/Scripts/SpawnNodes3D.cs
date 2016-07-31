@@ -260,5 +260,6 @@ public class SpawnNodes3D : MonoBehaviour
 
             node.SetActive(false);
         }
+        endNode.GetComponent<Node>().type = Node.nodeType.End;
     }
 }

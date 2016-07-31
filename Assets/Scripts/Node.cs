@@ -49,14 +49,8 @@ public class Node : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player")
-        {
-            if (OnEntered != null)
-                OnEntered(this);
-            
-//            if (OnCompleted != null)
-//                OnCompleted(this);
-        }
+        if (other.tag == "Player" && OnEntered != null)
+            OnEntered(this);
     }
 
     void OnMouseDown()
@@ -69,31 +63,17 @@ public class Node : MonoBehaviour
     void OnMouseOver()
     {
         if (OnHover != null)
-        {
             OnHover(this);
-        }
     }
 
     public void OnMouseExit()
     {
         if (OnHoverExit != null)
-        {
             OnHoverExit(this);
-        }
     }
 
     public void NodeCompleted()
     {
-        if (OnCompleted != null)
-            OnCompleted(this);
-    }
-
-
-    // ** Only relevant for 2D ** //
-
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        Debug.Log(this.name + " entered");
         if (OnCompleted != null)
             OnCompleted(this);
     }

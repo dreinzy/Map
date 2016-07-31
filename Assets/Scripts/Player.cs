@@ -20,6 +20,18 @@ public class Player : MonoBehaviour
         audio = GetComponent<AudioSource>();
         lastFuel = fuel;
         fuelGauge.text = "Fuel: " + fuel;
+
+        GameObject[] nodes = GameObject.FindGameObjectsWithTag("Node");
+        if (nodes == null)
+            //TODO: Handle possible error(no nodes in level)
+            Debug.Log("No nodes found in scene");
+        else
+        {
+            foreach (var node in nodes)
+            {
+                node.GetComponent<Node>().OnCompleted += NodeCompleted;
+            }
+        }
     }
 
     void Update()
@@ -29,6 +41,11 @@ public class Player : MonoBehaviour
             fuelGauge.text = "Fuel: " + fuel;
             fuelMeter.fillAmount = fuel / 30.0f;
         }
+    }
+
+    private void NodeCompleted(Node node)
+    {
+        this.transform.position = node.gameObject.transform.position;
     }
 
     public void FaceDirection(Node node)
